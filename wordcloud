@@ -1,0 +1,29 @@
+import jieba
+from wordcloud import WordCloud   
+text1=open(".\lunyu.txt","r").read()
+text2=open(".\mengzi.txt","r").read()
+text3=open(".\daxuezhongyong.txt","r",encoding='utf-8').read()
+text=text1+text2+text3
+excludes={"子曰","子","孔子","子贡","子路","子夏","曾子","子张","颜渊","夫子","樊迟","冉有","管仲","子游","他",
+          "子贡曰","回","由","求","赐","吾","我","我者","季氏","宰","有","仲弓","孟子","孟子曰","滕文公","齐宣王","公孙","公孙丑","万章",
+          "曰","之","乎","者","也","矣","亦","谁","焉","又","所","已","而已","而","虽","以为","至于","然后","可以","何谓","使",
+          "之人","之于","必有","然而","见于","故","及其","有所","之道","如此","所以","之为",
+          "如之何","在","得","对","又","将","或","必","其","而后","今","若","于","问于","何以","以","如","哉","斯","与","何为",
+          "可","则","问","皆","非","不","未","勿","谓","说","可谓","子谓","谓之","何有","何如","与其","然","是","无","此之谓",
+          "不得","不可","不以","无所","不如","不及",
+        }
+words=jieba.lcut_for_search(text)
+result=" ".join(words)
+wc=WordCloud(
+    font_path='.\SIMHEI.TTF',
+    background_color='white',
+    width=500,
+    height=350,
+    max_font_size=50,
+    min_font_size=10,
+    #mask=bg_mask,
+    mode='RGBA',
+    stopwords=excludes
+)
+wc.generate(result)
+wc.to_file(r".\sishu.png")
